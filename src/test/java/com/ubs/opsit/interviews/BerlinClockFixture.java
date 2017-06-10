@@ -1,6 +1,7 @@
 package com.ubs.opsit.interviews;
 
-import com.ubs.opsit.interviews.impl.BerlinClockTimeConverter;
+import com.ubs.opsit.interviews.time.utils.converter.impl.BerlinClockTimeConverter;
+import com.ubs.opsit.interviews.time.utils.converter.TimeConverter;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.junit.Test;
