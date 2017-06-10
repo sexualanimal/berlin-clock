@@ -1,4 +1,4 @@
-package com.ubs.opsit.interviews;
+package com.ubs.opsit.interviews.time.utils.converter;
 
 public interface TimeConverter {
 

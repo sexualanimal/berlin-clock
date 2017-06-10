@@ -1,6 +1,6 @@
-package com.ubs.opsit.interviews.impl;
+package com.ubs.opsit.interviews.time.utils.converter.impl;
 
-import com.ubs.opsit.interviews.TimeConverter;
+import com.ubs.opsit.interviews.time.utils.converter.TimeConverter;
 
 /**
  * Created by kozak on 09.06.2017.
