@@ -25,7 +25,11 @@ dependencies {
     compile 'org.springframework:spring-context:4.3.9.RELEASE',
             'org.slf4j:slf4j-api:1.7.7',
             'commons-lang:commons-lang:2.6',
-            'org.projectlombok:lombok:1.16.16'
+            'org.projectlombok:lombok:1.16.16',
+            'org.springframework.boot:spring-boot-starter-test:1.5.4.RELEASE',
+            'org.springframework:spring-web:4.3.9.RELEASE',
+            'javax.servlet:servlet-api:2.5',
+            'org.springframework.boot:spring-boot-autoconfigure:1.5.4.RELEASE'
 
 
 

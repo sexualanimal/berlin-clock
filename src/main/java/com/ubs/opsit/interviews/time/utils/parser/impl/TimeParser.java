@@ -5,12 +5,14 @@ import com.ubs.opsit.interviews.time.entities.Time;
 import com.ubs.opsit.interviews.time.utils.parser.ITimeParser;
 import com.ubs.opsit.interviews.time.utils.validator.ITimeValidator;
 import com.ubs.opsit.interviews.time.utils.validator.impl.TimeValidator;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
 /**
  * Created by kozak on 10.06.2017.
  */
+
 public class TimeParser implements ITimeParser {
 
     private ITimeValidator timeValidator = new TimeValidator();
@@ -22,8 +24,6 @@ public class TimeParser implements ITimeParser {
         }
         if ((timeObject instanceof String)) {
             return parseFromString((String) timeObject);
-        } else if ((timeObject instanceof Integer)) {
-            return parseFromInteger((int) timeObject);
         } else if ((timeObject instanceof Date)) {
             return parseFromDate((Date) timeObject);
         } else {
@@ -38,11 +38,7 @@ public class TimeParser implements ITimeParser {
         return new Time(hours, minutes, seconds);
     }
 
-    private BaseTime parseFromInteger(int timeInteger) {
-        return null;
-    }
-
     private BaseTime parseFromDate(Date timeDate) {
-        return null;
+        return new Time(timeDate.getHours(),timeDate.getMinutes(),timeDate.getSeconds());
     }
 }

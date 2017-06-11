@@ -4,12 +4,14 @@ import com.ubs.opsit.interviews.time.entities.BaseTime;
 import com.ubs.opsit.interviews.time.utils.converter.ITimeConverter;
 import com.ubs.opsit.interviews.time.utils.parser.ITimeParser;
 import com.ubs.opsit.interviews.time.utils.parser.impl.TimeParser;
+import org.springframework.stereotype.Service;
 
 import static com.ubs.opsit.interviews.time.utils.Constants.*;
 
 /**
  * Created by kozak on 09.06.2017.
  */
+
 public class BerlinClockTimeConverter implements ITimeConverter {
 
     private ITimeParser timeParser = new TimeParser();
@@ -30,11 +32,11 @@ public class BerlinClockTimeConverter implements ITimeConverter {
     }
 
     private String getNewLine() {
-        return "\n";
+        return NEWLINE_CHARACTER;
     }
 
     private String getSecondsLine(int seconds) {
-        return seconds % 2 == 0 ? LAMP_COLOR_YELLOW : LAMP_COLOR_DISABLED;
+        return seconds % COUNT_OF_SECONDS_LAMP_STATES == 0 ? LAMP_COLOR_YELLOW : LAMP_COLOR_DISABLED;
     }
 
     private String getHoursTopLine(int hours) {

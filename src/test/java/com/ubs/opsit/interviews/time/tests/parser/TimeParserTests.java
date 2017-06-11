@@ -1,6 +1,5 @@
 package com.ubs.opsit.interviews.time.tests.parser;
 
-import com.ubs.opsit.interviews.time.entities.BaseTime;
 import com.ubs.opsit.interviews.time.utils.parser.ITimeParser;
 import com.ubs.opsit.interviews.time.utils.parser.impl.TimeParser;
 import org.junit.Test;
@@ -11,7 +10,8 @@ import static org.junit.Assert.assertEquals;
  * Created by kozak on 10.06.2017.
  */
 public class TimeParserTests {
-    ITimeParser timeParser = new TimeParser();
+
+    private ITimeParser timeParser = new TimeParser();
 
     @Test(expected = IllegalArgumentException.class)
     public void testParseTimeFromStringNull() {

@@ -4,13 +4,16 @@ import com.ubs.opsit.interviews.time.utils.converter.ITimeConverter;
 import com.ubs.opsit.interviews.time.utils.converter.impl.BerlinClockTimeConverter;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 /**
  * Created by kozak on 10.06.2017.
  */
 public class TimeConverterTests {
-    ITimeConverter berlinClockTimeConverter = new BerlinClockTimeConverter();
+
+    private ITimeConverter berlinClockTimeConverter = new BerlinClockTimeConverter();
 
     @Test(expected = IllegalArgumentException.class)
     public void testConvertTimeFromStringNull() {
@@ -76,6 +79,17 @@ public class TimeConverterTests {
     public void testConvertTimeFromStringDifferentSeparators() {
         Object validTime = "23 59\\59";
         String expectedBerlinClockPresentation = "O\nRRRR\nRRRO\nYYRYYRYYRYY\nYYYY";
+        String actualBerlinClockPresentation = berlinClockTimeConverter.convertTime(validTime);
+        assertEquals(expectedBerlinClockPresentation, actualBerlinClockPresentation);
+    }
+
+    @Test
+    public void testConvertTimeFromDate() {
+        Date validTime = new Date();
+        validTime.setHours(20);
+        validTime.setMinutes(15);
+        validTime.setSeconds(1);
+        String expectedBerlinClockPresentation = "O\nRRRR\nOOOO\nYYROOOOOOOO\nOOOO";
         String actualBerlinClockPresentation = berlinClockTimeConverter.convertTime(validTime);
         assertEquals(expectedBerlinClockPresentation, actualBerlinClockPresentation);
     }
