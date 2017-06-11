@@ -3,7 +3,6 @@ package com.ubs.opsit.interviews.time.tests.validator;
 import com.ubs.opsit.interviews.time.utils.validator.ITimeValidator;
 import com.ubs.opsit.interviews.time.utils.validator.impl.TimeValidator;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
 
@@ -18,78 +17,113 @@ public class TimeValidatorTests {
     private static final ITimeValidator timeValidator = new TimeValidator();
 
     @Test
-    public void testTimeFromDateNull() {
+    public void testValidateTimeFromDateNull() {
         Date nullDate = null;
         Boolean validationResult = timeValidator.isValid(nullDate);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringEmpty() {
+    public void testValidateTimeFromStringEmpty() {
         String emptyTime = "";
         Boolean validationResult = timeValidator.isValid(emptyTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringEmptySpace() {
+    public void testValidateTimeFromStringEmptySpace() {
         String emptySpaceTime = "     ";
         Boolean validationResult = timeValidator.isValid(emptySpaceTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringNull() {
+    public void testValidateTimeFromStringNull() {
         String nullTime = null;
         Boolean validationResult = timeValidator.isValid(nullTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringInvalidHours() {
+    public void testValidateTimeFromStringInvalidHours() {
         String invalidTime = "99:00:00";
         Boolean validationResult = timeValidator.isValid(invalidTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringInvalidMinutes() {
+    public void testValidateTimeFromStringInvalidMinutes() {
         String invalidTime = "00:99:00";
         Boolean validationResult = timeValidator.isValid(invalidTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringInvalidSeconds() {
+    public void testValidateTimeFromStringInvalidSeconds() {
         String invalidTime = "00:00:99";
         Boolean validationResult = timeValidator.isValid(invalidTime);
         assertFalse(validationResult);
     }
 
     @Test
-    public void testTimeFromStringValidZero() {
+    public void testValidateTimeFromStringValidZero() {
         String validTime = "00:00:00";
         Boolean validationResult = timeValidator.isValid(validTime);
         assertTrue(validationResult);
     }
 
     @Test
-    public void testTimeFromStringValidHours() {
+    public void testValidateTimeFromStringValidHours() {
         String validTime = "01:00:00";
         Boolean validationResult = timeValidator.isValid(validTime);
         assertTrue(validationResult);
     }
 
     @Test
-    public void testTimeFromStringValidMinutes() {
+    public void testValidateTimeFromStringValidMinutes() {
         String validTime = "00:01:00";
         Boolean validationResult = timeValidator.isValid(validTime);
         assertTrue(validationResult);
     }
 
     @Test
-    public void testTimeFromStringValidSeconds() {
+    public void testValidateTimeFromStringValidSeconds() {
         String validTime = "00:00:01";
+        Boolean validationResult = timeValidator.isValid(validTime);
+        assertTrue(validationResult);
+    }
+
+    @Test
+    public void testValidateTimeFromStringValidSeparator1() {
+        String validTime = "00-00-00";
+        Boolean validationResult = timeValidator.isValid(validTime);
+        assertTrue(validationResult);
+    }
+
+    @Test
+    public void testValidateTimeFromStringValidSeparator2() {
+        String validTime = "00_00_00";
+        Boolean validationResult = timeValidator.isValid(validTime);
+        assertTrue(validationResult);
+    }
+
+    @Test
+    public void testValidateTimeFromStringValidSeparator3() {
+        String validTime = "00/00/00";
+        Boolean validationResult = timeValidator.isValid(validTime);
+        assertTrue(validationResult);
+    }
+
+    @Test
+    public void testValidateTimeFromStringValidSeparator4() {
+        String validTime = "00\\00\\00";
+        Boolean validationResult = timeValidator.isValid(validTime);
+        assertTrue(validationResult);
+    }
+
+    @Test
+    public void testValidateTimeFromStringValidSeparator5() {
+        String validTime = "00 00 00";
         Boolean validationResult = timeValidator.isValid(validTime);
         assertTrue(validationResult);
     }

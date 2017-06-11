@@ -16,7 +16,6 @@ import static com.ubs.opsit.interviews.time.utils.Constants.TimeStringValidation
  */
 public class TimeValidator implements ITimeValidator {
 
-
     private boolean isValidString(String inputTimeString) {
         if (inputTimeString.replaceAll("\\s+", "").isEmpty()) {
             return false;

@@ -1,7 +1,7 @@
 # The Berlin Clock
 
-The Berlin Uhr (Clock) is a rather strange way to show the time. On the top of the clock there is a yellow lamp that
-blinks on/off every two seconds. The time is calculated by adding rectangular lamps.
+The Berlin Uhr (Clock) is a rather strange way to show the ATime. On the top of the clock there is a yellow lamp that
+blinks on/off every two seconds. The ATime is calculated by adding rectangular lamps.
  
 The top two rows of lamps are red. These indicate the hours of a day. In the top row there are 4 red lamps. Every lamp
 represents 5 hours. In the lower row of red lamps every lamp represents 1 hour. So if two lamps of the first row and
