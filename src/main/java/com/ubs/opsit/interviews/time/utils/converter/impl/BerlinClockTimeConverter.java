@@ -17,55 +17,69 @@ public class BerlinClockTimeConverter implements ITimeConverter {
     @Override
     public String convertTime(Object timeObject) {
         BaseTime time = timeParser.parseTime(timeObject);
-        int topHourLamps = time.getHours() / TIME_BY_TOP_LAMP_MULTIPLICATOR;
-        int bottomHourLamps = time.getHours() % TIME_BY_TOP_LAMP_MULTIPLICATOR;
-        int topMinuteLamps = time.getMinutes() / TIME_BY_TOP_LAMP_MULTIPLICATOR;
-        int bottomMinuteLamps = time.getMinutes() % TIME_BY_TOP_LAMP_MULTIPLICATOR;
-        boolean secondsLamp = (time.getSeconds() % COUNT_OF_SECONDS_LAMP_STATES) == 0;
-        String berlinClockPresentation = "";
 
-        if (secondsLamp) {
-            berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_YELLOW);
-        } else {
-            berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_DISABLED);
-        }
-        berlinClockPresentation = berlinClockPresentation.concat(NEWLINE_CHARACTER);
-        for (int i = 1; i <= COUNT_OF_TOP_HOURS_ROW_LAMPS; i++) {
-            if (i <= topHourLamps) {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_RED);
-            } else {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_DISABLED);
-            }
-        }
-        berlinClockPresentation = berlinClockPresentation.concat(NEWLINE_CHARACTER);
-        for (int i = 1; i <= COUNT_OF_BOTTOM_HOURS_ROW_LAMPS; i++) {
-            if (i <= bottomHourLamps) {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_RED);
-            } else {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_DISABLED);
-            }
-        }
-        berlinClockPresentation = berlinClockPresentation.concat(NEWLINE_CHARACTER);
-        for (int i = 1; i <= COUNT_OF_TOP_MINUTES_ROW_LAMPS; i++) {
-            if (i <= topMinuteLamps) {
-                if ((i % 3) == 0) {
-                    berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_RED);
+        return getSecondsLine(time.getSeconds())
+                .concat(getNewLine())
+                .concat(getHoursTopLine(time.getHours()))
+                .concat(getNewLine())
+                .concat(getHoursBottomLine(time.getHours()))
+                .concat(getNewLine())
+                .concat(getMinutesTopLine(time.getMinutes()))
+                .concat(getNewLine())
+                .concat(getMinutesBottomLine(time.getMinutes()));
+    }
+
+    private String getNewLine() {
+        return "\n";
+    }
+
+    private String getSecondsLine(int seconds) {
+        return seconds % 2 == 0 ? LAMP_COLOR_YELLOW : LAMP_COLOR_DISABLED;
+    }
+
+    private String getHoursTopLine(int hours) {
+        return getRow(LAMP_COLOR_RED,
+                COUNT_OF_TOP_HOURS_ROW_LAMPS,
+                hours / TIME_BY_TOP_LAMP_MULTIPLICATOR);
+    }
+
+    private String getHoursBottomLine(int hours) {
+        return getRow(LAMP_COLOR_RED,
+                COUNT_OF_BOTTOM_HOURS_ROW_LAMPS,
+                hours % TIME_BY_TOP_LAMP_MULTIPLICATOR);
+    }
+
+    private String getMinutesTopLine(int minutes) {
+        return getRow(LAMP_COLOR_YELLOW,
+                LAMP_COLOR_RED,
+                WITH_ADDITIONAL_COLOR_MULTIPLICATOR,
+                COUNT_OF_TOP_MINUTES_ROW_LAMPS,
+                minutes / TIME_BY_TOP_LAMP_MULTIPLICATOR);
+    }
+
+    private String getMinutesBottomLine(int minutes) {
+        return getRow(LAMP_COLOR_YELLOW,
+                COUNT_OF_BOTTOM_MINUTES_ROW_LAMPS,
+                minutes % TIME_BY_TOP_LAMP_MULTIPLICATOR);
+    }
+
+    private String getRow(String colorOfLamps, int commonCount, int lightedCount) {
+        return getRow(colorOfLamps, colorOfLamps, WITH_ADDITIONAL_COLOR_MULTIPLICATOR, commonCount, lightedCount);
+    }
+
+    private String getRow(String colorOfLamps, String additionalColorOfLamps, int additionalMultiplicator, int commonCount, int lightedCount) {
+        String lampsRow = "";
+        for (int currentLampIndex = 1; currentLampIndex <= commonCount; currentLampIndex++) {
+            if (currentLampIndex <= lightedCount) {
+                if ((currentLampIndex % additionalMultiplicator) == 0) {
+                    lampsRow = lampsRow.concat(additionalColorOfLamps);
                 } else {
-                    berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_YELLOW);
+                    lampsRow = lampsRow.concat(colorOfLamps);
                 }
             } else {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_DISABLED);
+                lampsRow = lampsRow.concat(LAMP_COLOR_DISABLED);
             }
         }
-        berlinClockPresentation = berlinClockPresentation.concat(NEWLINE_CHARACTER);
-        for (int i = 1; i <= COUNT_OF_BOTTOM_MINUTES_ROW_LAMPS; i++) {
-            if (i <= bottomMinuteLamps) {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_YELLOW);
-            } else {
-                berlinClockPresentation = berlinClockPresentation.concat(LAMP_COLOR_DISABLED);
-            }
-        }
-
-        return berlinClockPresentation;
+        return lampsRow;
     }
 }
